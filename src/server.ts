@@ -10,13 +10,15 @@ import {
   type StreamTextOnFinishCallback,
   type ToolSet,
 } from "ai";
-import { openai } from "@ai-sdk/openai";
++ import { createWorkersAI } from 'workers-ai-provider';
 import { processToolCalls } from "./utils";
 import { tools, executions } from "./tools";
 // import { env } from "cloudflare:workers";
-
-const model = openai("gpt-4o-2024-11-20");
-// Cloudflare AI Gateway
+// Create a Workers AI instance
++ const workersai = createWorkersAI({ binding: env.AI });
+// Use it when calling the streamText method (or other methods)
+// from the ai-sdk
++ const model = workersai("@cf/deepseek-ai/deepseek-r1-distill-qwen-32b")// Cloudflare AI Gateway
 // const openai = createOpenAI({
 //   apiKey: env.OPENAI_API_KEY,
 //   baseURL: env.GATEWAY_BASE_URL,
